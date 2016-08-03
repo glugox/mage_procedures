@@ -57,3 +57,18 @@ BEGIN
 END;
 $$
 DELIMITER ;
+
+/* -------------------------------------------------- */
+
+DROP FUNCTION IF EXISTS CAT_ID_BY_NAME;
+DELIMITER $$
+CREATE FUNCTION CAT_ID_BY_NAME(prm_cat_name TEXT)
+  RETURNS TEXT
+  LANGUAGE SQL -- Optional
+BEGIN
+  DECLARE ret INT;
+  SELECT entity_id FROM catalog_category_entity_varchar WHERE attribute_id = CAT_ATTR_ID('name') AND 'value' = prm_cat_name INTO ret;
+  RETURN ret;
+END;
+$$
+DELIMITER ;
